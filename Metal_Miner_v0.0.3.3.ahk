@@ -51,8 +51,8 @@
     Gui, Font, s14
     Gui, Add, Text, x25 y80 w140 vt_current_metal
     Gui, Font, s8
-    Gui, Add, Text, w80 vt_metal_metal_health
-    Gui, Add, Progress, w180 0x800000 c58dd58 vprogress_metal_metal_health, 100
+    Gui, Add, Text, w80 vt_metal_health
+    Gui, Add, Progress, w180 0x800000 c58dd58 vprogress_metal_health, 100
     Gui, Add, Text
 
     ; Shop Tab
@@ -121,7 +121,7 @@ Shop(tool){
 }
 
 Gui_Set_Text(){
-    GuiControl,, t_metal_metal_health, %metal_health%
+    GuiControl,, t_metal_health, %metal_health%
     GuiControl,, t_current_metal, %current_metal%
     SB_SetText("$ " floor(player1.money), 1)
     SB_SetText("C " player1.attack_dmg, 2)
@@ -162,8 +162,8 @@ Get_Next_Metal(rand){
 }
 
 Gui_Set_Progress(){
-    GuiControl, +Range0-%metal_health%, progress_metal_metal_health
-    GuiControl,, progress_metal_metal_health, %metal_health%
+    GuiControl, +Range0-%metal_health%, progress_metal_health
+    GuiControl,, progress_metal_health, %metal_health%
 }
 
 Do_Attack(){
@@ -172,7 +172,7 @@ Do_Attack(){
         temp := attack
         attack -= metal_health
         metal_health -= temp
-        GuiControl,, progress_metal_metal_health, %metal_health%
+        GuiControl,, progress_metal_health, %metal_health%
         if (metal_health < 1)
         {
             player1.money += %current_metal%.Get_Money()
