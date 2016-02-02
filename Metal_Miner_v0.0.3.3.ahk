@@ -13,13 +13,6 @@
 *       • 
 */
 ; Variables
-    global rand          := 0
-    global log           := ""
-    global current_metal := ""
-    global metal_health  := 0
-    global attack        := player1.attack_dmg
-    global metals        := ["aluminium", "bismuth", "cobalt", "copper", "nickel", "silver", "gold", "platinum"]
-    global tools         := ["stone_pickaxe", "iron_pickaxe", "steel_pickaxe", "auger"]
     ;                           Player(attack_dmg, weapon, click_count, money)
     global player1       := new Player(1, "", 0, 0)
     ;                           Metal(prob, count, rate, hardness)
@@ -36,6 +29,14 @@
     global iron_pickaxe  := new Tool(100,   50)
     global steel_pickaxe := new Tool(1000,  600)
     global auger         := new Tool(12000, 10000)
+    ; Misc vars (Needs work)
+    global rand          := 0
+    global log           := ""
+    global current_metal := ""
+    global metal_health  := 0
+    global attack        := player1.attack_dmg
+    global metals        := ["aluminium", "bismuth", "cobalt", "copper", "nickel", "silver", "gold", "platinum"]
+    global tools         := ["stone_pickaxe", "iron_pickaxe", "steel_pickaxe", "auger"]
 
 ; Gui
     ; Add Status bar
