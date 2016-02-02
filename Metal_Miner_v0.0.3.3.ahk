@@ -13,12 +13,6 @@
 *       • 
 */
 ; Variables
-    ;                           (attack_dmg, weapon, click_count, money)
-    global player1 := new Player(1, "", 0, 0)
-    ; global click_count   := 0
-    ; global money         := 0
-    ; global tool_dmg      := 1
-
     global rand          := 0
     global log           := ""
     global current_metal := ""
@@ -26,7 +20,9 @@
     global attack        := player1.attack_dmg
     global metals        := ["aluminium", "bismuth", "cobalt", "copper", "nickel", "silver", "gold", "platinum"]
     global tools         := ["stone_pickaxe", "iron_pickaxe", "steel_pickaxe", "auger"]
-    ;                                (prob, count, rate, hardness)
+    ;                           Player(attack_dmg, weapon, click_count, money)
+    global player1       := new Player(1, "", 0, 0)
+    ;                           Metal(prob, count, rate, hardness)
     global aluminium     := new Metal(0.98,   0, 1,    40)
     global bismuth       := new Metal(0.0200, 0, 5,    140)
     global cobalt        := new Metal(0.0100, 0, 10,   300)
@@ -35,12 +31,11 @@
     global silver        := new Metal(0.0016, 0, 350,  6000)
     global gold          := new Metal(0.0007, 0, 1000, 20000)
     global platinum      := new Metal(0.0001, 0, 8000, 100000)
-    ;                               (Price, Damage)
+    ;                           Tool(Price, Damage)
     global stone_pickaxe := new Tool(10,    1)
     global iron_pickaxe  := new Tool(100,   50)
     global steel_pickaxe := new Tool(1000,  600)
     global auger         := new Tool(12000, 10000)
-    ; m(stone_pickaxe)
 
 ; Gui
     ; Add Status bar
@@ -146,7 +141,6 @@ Calculate_Probability(){
 }
 
 Get_Next_Metal(rand){
-    ; m(rand)
     if      (rand < platinum.prob)
         current_metal := "platinum",  hardness := platinum.hardness
     else if (rand < gold.prob)
@@ -163,7 +157,6 @@ Get_Next_Metal(rand){
         current_metal := "bismuth",   hardness := bismuth.hardness
     else                  ; aluminium
         current_metal := "aluminium", hardness := aluminium.hardness
-    ; m(%current_metal%.hardness)
     return %current_metal%.hardness
 }
 
@@ -175,7 +168,6 @@ Gui_Set_Progress(){
 Do_Attack(){
     while (attack > 0)
     {
-        ; sleep 100
         temp := attack
         attack -= metal_health
         metal_health -= temp
@@ -186,16 +178,12 @@ Do_Attack(){
             ++%current_metal%.count
             rand := Calculate_Probability()
             metal_health := Get_Next_Metal(rand)
-            ; m(metal_health,rand)
             Gui_Set_Text()
             Gui_Set_Progress()
             SB_SetText("$ " floor(player1.money), 1)
-            ; m("Broke")
         }
     }
     attack := player1.attack_dmg
-    ; if (log)
-    ;     m(RTrim(log, "`n"))
 }
 
 Class Metal{
